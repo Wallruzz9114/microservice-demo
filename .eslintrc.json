@@ -1,0 +1,222 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nrwl/nx"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "type:app",
+                "onlyDependOnLibsWithTags": [
+                  "type:app",
+                  "type:core",
+                  "type:const",
+                  "type:env",
+                  "type:ui",
+                  "type:util",
+                  "type:testing",
+                  "scope:shared"
+                ]
+              },
+              {
+                "sourceTag": "type:api",
+                "onlyDependOnLibsWithTags": [
+                  "type:const",
+                  "type:core",
+                  "type:env",
+                  "type:ui",
+                  "type:util",
+                  "scope:shared"
+                ]
+              },
+              {
+                "sourceTag": "type:core",
+                "onlyDependOnLibsWithTags": [
+                  "type:api",
+                  "type:const",
+                  "type:core",
+                  "type:env",
+                  "type:ui",
+                  "type:util"
+                ]
+              },
+              {
+                "sourceTag": "type:ui",
+                "onlyDependOnLibsWithTags": [
+                  "type:api",
+                  "type:const",
+                  "type:core",
+                  "type:ui",
+                  "type:util"
+                ]
+              },
+              {
+                "sourceTag": "type:util",
+                "onlyDependOnLibsWithTags": [
+                  "type:const",
+                  "type:util",
+                  "type:env"
+                ]
+              },
+              {
+                "sourceTag": "type:const",
+                "onlyDependOnLibsWithTags": ["type:const"]
+              },
+              {
+                "sourceTag": "type:env",
+                "onlyDependOnLibsWithTags": ["type:const", "type:env"]
+              },
+              {
+                "sourceTag": "type:testing",
+                "onlyDependOnLibsWithTags": [
+                  "type:const",
+                  "type:env",
+                  "type:util"
+                ]
+              },
+              {
+                "sourceTag": "scope:auth",
+                "onlyDependOnLibsWithTags": ["scope:shared", "scope:auth"]
+              },
+              {
+                "sourceTag": "scope:client",
+                "onlyDependOnLibsWithTags": ["scope:shared", "scope:client"]
+              },
+              {
+                "sourceTag": "scope:expiration",
+                "onlyDependOnLibsWithTags": ["scope:shared", "scope:expiration"]
+              },
+              {
+                "sourceTag": "scope:orders",
+                "onlyDependOnLibsWithTags": ["scope:shared", "scope:orders"]
+              },
+              {
+                "sourceTag": "scope:payments",
+                "onlyDependOnLibsWithTags": ["scope:shared", "scope:payments"]
+              },
+              {
+                "sourceTag": "scope:tickets",
+                "onlyDependOnLibsWithTags": ["scope:shared", "scope:tickets"]
+              },
+              {
+                "sourceTag": "platform:web",
+                "onlyDependOnLibsWithTags": ["platform:web", "platform:shared"]
+              },
+              {
+                "sourceTag": "platform:server",
+                "onlyDependOnLibsWithTags": [
+                  "platform:server",
+                  "platform:shared"
+                ]
+              },
+              {
+                "sourceTag": "platform:shared",
+                "onlyDependOnLibsWithTags": ["platform:shared"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": ["tsconfig.base.json"]
+      },
+      "plugins": [
+        "@typescript-eslint",
+        "unused-imports",
+        "import",
+        "max-params-no-constructor",
+        "simple-import-sort"
+      ],
+      "rules": {
+        "eqeqeq": ["error", "always", { "null": "never" }],
+        "complexity": "error",
+        "max-depth": "error",
+        "max-lines": [
+          "error",
+          {
+            "max": 500
+          }
+        ],
+        "max-lines-per-function": [
+          "error",
+          {
+            "max": 100
+          }
+        ],
+        "max-nested-callbacks": ["error", { "max": 3 }],
+        "max-params": ["error", 10],
+        "max-params-no-constructor/max-params-no-constructor": ["error", 4],
+        "no-console": [
+          "error",
+          { "allow": ["error", "warn", "info", "table"] }
+        ],
+        "no-duplicate-imports": "error",
+        "no-empty": "error",
+        "no-fallthrough": "error",
+        "no-param-reassign": "error",
+        "no-unreachable": "error",
+        "no-unreachable-loop": "error",
+        "no-var": "error",
+        "prefer-const": "error",
+        "@typescript-eslint/ban-ts-comment": "error",
+        "@typescript-eslint/ban-tslint-comment": "error",
+        "@typescript-eslint/ban-types": "error",
+        "@typescript-eslint/explicit-function-return-type": [
+          "error",
+          {
+            "allowExpressions": true,
+            "allowTypedFunctionExpressions": true,
+            "allowHigherOrderFunctions": true
+          }
+        ],
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-inferrable-types": [
+          "error",
+          { "ignoreParameters": true }
+        ],
+        "@typescript-eslint/no-non-null-assertion": "error",
+        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/no-require-imports": "error",
+        "@typescript-eslint/no-shadow": "error",
+        "@typescript-eslint/no-this-alias": "off",
+        "@typescript-eslint/prefer-enum-initializers": "error",
+        "@typescript-eslint/prefer-for-of": "error",
+        "@typescript-eslint/prefer-optional-chain": "error",
+        "@typescript-eslint/prefer-ts-expect-error": "error",
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              // Side effects.
+              ["^\\u0000"],
+              // 3rd party.
+              ["^@?\\w"],
+              // Anything not fitting group above.
+              ["^"],
+              // Relative imports.
+              ["^\\."]
+            ]
+          }
+        ],
+        "simple-import-sort/exports": "error"
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
+      "rules": {}
+    }
+  ]
+}
